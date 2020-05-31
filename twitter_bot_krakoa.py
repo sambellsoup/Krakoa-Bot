@@ -1,9 +1,9 @@
 import config
 
-config.consumer_key
-config.consumer_secret
-config.access_token
-config.access_token_secret
+consumer_key = config.consumer_key
+consumer_secret = config.consumer_secret
+access_token = config.access_token
+access_token_secret = config.access_token_secret
 config.username
 config.password
 
@@ -11,16 +11,28 @@ config.password
 import tweepy
 
 # Set Authentication Credentials
-auth = tweepy.OAuthHandler("CONSUMER_KEY", "CONSUMER_SECRET")
-auth.set_access_token("ACCESS_TOKEN", "ACCESS_TOKEN_SECRET")
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+
+# Create API object
+api = tweepy.API(auth, wait_on_rate_limit=True,
+    wait_on_rate_limit_notify=True)
 
 # Create API Object
 api = tweepy.API(auth)
 
+try:
+    api.verify_credentials()
+    print("Authentication OK")
+except:
+    print("Error during authentication")
+
+
+
 # Creates a new tweet
 # .update_status("Tweet")
 
-api.update_status("ACAB")
+api.update_status("Test tweet from Tweepy Python")
 
 # Retweet that Tweet!
 
