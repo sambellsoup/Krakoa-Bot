@@ -10,6 +10,14 @@ access_token_secret = config.access_token_secret
 # Import Tweepy
 import tweepy
 
+import logging
+import os
+
+logger = logging.getLogger()
+
+def create_api():
+
+
 # Set Authentication Credentials
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
