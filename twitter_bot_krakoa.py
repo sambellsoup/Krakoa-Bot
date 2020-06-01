@@ -4,8 +4,8 @@ consumer_key = config.consumer_key
 consumer_secret = config.consumer_secret
 access_token = config.access_token
 access_token_secret = config.access_token_secret
-config.username
-config.password
+# config.username
+# config.password
 
 # Import Tweepy
 import tweepy
@@ -32,7 +32,7 @@ except:
 # Creates a new tweet
 # .update_status("Tweet")
 
-api.update_status("Test tweet from Tweepy Python")
+# api.update_status("Test tweet from Tweepy Python")
 
 # Retweet that Tweet!
 
@@ -44,6 +44,36 @@ api.update_status("Test tweet from Tweepy Python")
 # Favorites
 # Trends
 # Media
+
+# Methods for User Timelines
+
+# timeline = api.home_timeline()
+# for tweet in timeline:
+    # print(f"{tweet.user.name} said {tweet.text}")
+
+
+# Methods for Tweets
+# api.update_status("Test tweet from Tweepy Python")
+
+# Methods for Users
+# user = api.get_user("MikezGarcia")
+
+# print("User details:")
+# print(user.name)
+# print(user.description)
+# print(user.location)
+
+# print("Last 20 Followers:")
+# for follower in user.followers():
+    # print(follower.name)
+
+# Methods for Following Users
+# api.create_friendship("realpython")
+
+# Methods for your account
+# api.update_profile(description="I like Python")
+
+
 
 # Tweepy requires that all requests use OAuth to authenticate.
 # So you need to create the required authentication credentials to be able to use the API.
