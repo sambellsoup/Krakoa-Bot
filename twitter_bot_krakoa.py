@@ -4,6 +4,7 @@ consumer_key = config.consumer_key
 consumer_secret = config.consumer_secret
 access_token = config.access_token
 access_token_secret = config.access_token_secret
+
 # config.username
 # config.password
 
@@ -12,6 +13,8 @@ import tweepy
 
 import logging
 import os
+import pickle
+import re
 
 logger = logging.getLogger()
 
@@ -19,76 +22,29 @@ def create_api():
 
 
 # Set Authentication Credentials
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_token, access_token_secret)
 
 # Create API object
-api = tweepy.API(auth, wait_on_rate_limit=True,
-    wait_on_rate_limit_notify=True)
+    api = tweepy.API(auth, wait_on_rate_limit=True,
+                        wait_on_rate_limit_notify=True)
 
 # Create API Object
-api = tweepy.API(auth)
+    api = tweepy.API(auth)
 
-try:
-    api.verify_credentials()
-    print("Authentication OK")
-except:
-    print("Error during authentication")
+    try:
+        api.verify_credentials()
+        print("Authentication OK")
+    except Exception as e:
+        logger.err0r("Error creating API", exc_info=True)
+        raise e
+#         print("Error during authentication")
+    logger.info("API created")
+    return api
 
-
-
-# Creates a new tweet
-# .update_status("Tweet")
-
-# api.update_status("Test tweet from Tweepy Python")
-
-# Retweet that Tweet!
-
-# Tweepy provides HTTP endpoints for:
-# Tweets
-# Retweets
-# Likes
-# Direct messages
-# Favorites
-# Trends
-# Media
-
-# Methods for User Timelines
-
-# timeline = api.home_timeline()
-# for tweet in timeline:
-    # print(f"{tweet.user.name} said {tweet.text}")
-
-
-# Methods for Tweets
-# api.update_status("Test tweet from Tweepy Python")
-
-# Methods for Users
-# user = api.get_user("MikezGarcia")
-
-# print("User details:")
-# print(user.name)
-# print(user.description)
-# print(user.location)
-
-# print("Last 20 Followers:")
-# for follower in user.followers():
-    # print(follower.name)
-
-# Methods for Following Users
-# api.create_friendship("realpython")
-
-# Methods for your account
-# api.update_profile(description="I like Python")
-
-
-
-# Tweepy requires that all requests use OAuth to authenticate.
-# So you need to create the required authentication credentials to be able to use the API.
-
-# These credentials are four text strings:
-
-# Consumer key
-# Consumer secret
-# Access token
-# Access secret
+def retweet():
+    url = str(input("Please enter the url of the tweet you would like retweeted."))
+    id = re.compile('\d{19}$')
+    id = id.match(url)
+    api.retweet(id)
+    
