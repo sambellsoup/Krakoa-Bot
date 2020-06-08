@@ -43,8 +43,18 @@ def create_api():
     return api
 
 def retweet():
+
+    # Set Authentication Credentials
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_token, access_token_secret)
+
+# Create API object
+    api = tweepy.API(auth, wait_on_rate_limit=True,
+                        wait_on_rate_limit_notify=True)
+    api = tweepy.API(auth)
     url = str(input("Please enter the url of the tweet you would like retweeted."))
-    id = re.compile('\d{19}$')
-    id = id.match(url)
-    api.retweet(id)
-    
+    id = re.findall(r'\d{19}$', url)
+    api.retweet(id[0])
+    print('Your tweet has been successfully retweeted!')
+
+retweet()
