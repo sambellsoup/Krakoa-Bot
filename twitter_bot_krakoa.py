@@ -1,3 +1,7 @@
+# Create function to schedule tweets
+# Create function to edit scheduled tweets
+# Deploy with Docker
+
 import config
 
 consumer_key = config.consumer_key
