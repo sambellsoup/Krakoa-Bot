@@ -1,1 +1,1 @@
-Simple program that downloads user avatar photos.
+Simple program that downloads user avatar photos from Twitter.
